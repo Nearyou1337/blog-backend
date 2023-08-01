@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PostSchema = new mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
@@ -22,6 +22,7 @@ const PostSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      // какая-то дрочь тут
       required: true,
     },
     imageUrl: String,
@@ -31,4 +32,4 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Post", PostSchema);
+export default mongoose.model("Post", postSchema);
