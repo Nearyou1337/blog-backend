@@ -2,6 +2,21 @@
 import PostSchema from "../models/Post.js";
 import UserSchema from "../models/User.js";
 
+export const getLastTags = async (req, res) => {
+  try {
+    const allPosts = await PostSchema.find().limit(3);
+    const tags = allPosts
+      .map((obj) => obj.tags)
+      .flat()
+      .slice(0, 5);
+    res.status(200).json(tags);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      message: "Не удалось получить статьи",
+    });
+  }
+};
 export const update = async (req, res) => {
   try {
     const postId = req.params.id;
@@ -15,7 +30,7 @@ export const update = async (req, res) => {
         text: req.body.text,
         imageUrl: req.body.imageUrl,
         user: req.userId,
-        tags: req.body.tags,
+        tags: req.body.tags.split(","),
       }
     );
 
